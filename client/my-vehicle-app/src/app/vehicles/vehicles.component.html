@@ -1,0 +1,37 @@
+<div class="form">
+<div class="headersDiv"><h1>VEHICLES</h1></div>
+    <div>
+        <div class="filter-bar">
+            <form (ngSubmit)="applyFilters()">
+              <input type="number" [(ngModel)]="filterCriteria.hp" name="hp" placeholder="Min Horsepower">
+              <input type="number" [(ngModel)]="filterCriteria.acc" name="acc" placeholder="Min Acceleration">
+              <button type="submit">Apply Filters</button>
+            </form>
+          </div>
+          
+
+<table class="table">
+    <thead class="thead">
+        <tr class="tr">
+            <th class="th" *ngFor="let header of tableHeaders">{{header}}</th>
+            <th class="th">Delete</th>
+        </tr>
+    </thead>
+    <tbody class="tbody">
+        <tr class="tr" *ngFor="let vehicle of vehicles">
+            <td class="td">{{ vehicle._id }}</td>
+            <td class="td">{{ vehicle.Name }}</td>
+            <td class="td">{{ vehicle.Miles_per_Gallon }}</td>
+            <td class="td">{{ vehicle.Cylinders }}</td>
+            <td class="td">{{ vehicle.Displacement }}</td>
+            <td class="td">{{ vehicle.Horsepower }}</td>
+            <td class="td">{{ vehicle.Weight_in_lbs }}</td>
+            <td class="td">{{ vehicle.Acceleration }}</td>
+            <td class="td">{{ vehicle.Year }}</td>
+            <td class="td">{{ vehicle.price }}</td>
+            <td class="td">{{ vehicle.Origin }}</td>
+            <td class="td"><button (click)="deleteVehicle(vehicle._id)">Delete</button></td>
+        </tr>
+    </tbody>
+</table>
+</div>

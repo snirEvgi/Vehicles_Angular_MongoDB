@@ -1,0 +1,17 @@
+<div class="form-container">
+    <form [formGroup]="vehicleForm" (ngSubmit)="onSubmit()" class="form">
+  
+      <mat-form-field class="form-field">
+        <input matInput placeholder="ID" formControlName="_id">
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <input matInput placeholder="Old Price" formControlName="oldPrice" type="number">
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <input matInput placeholder="Price" formControlName="price" type="number">
+      </mat-form-field>
+  
+      <button mat-raised-button color="primary" type="submit">Update Vehicle</button>
+    </form>
+  </div>
+  

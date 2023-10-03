@@ -1,0 +1,46 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .table {
+    width: 90%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .thead {
+    background-color: #000;
+    color: white;
+    font-weight: bold;
+
+  }
+  .headerVehicles{
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .td {
+    border: 1px solid #ddd;
+    padding: 15px;
+    text-align: left;
+  }
+  .th2{
+    padding: 6px;
+  }
+ 
+  .thead {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    padding: 5px;
+  }
+  

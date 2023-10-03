@@ -1,0 +1,48 @@
+<div class="form-container">
+    
+    <form [formGroup]="vehicleForm" (ngSubmit)="onSubmit()" class="form">
+  
+      <mat-form-field class="form-field">
+        <input matInput placeholder="Name" formControlName="Name">
+      </mat-form-field>
+  
+      <mat-form-field class="form-field">
+        <input matInput placeholder="Miles per Gallon" formControlName="Miles_per_Gallon" type="number">
+      </mat-form-field>
+  
+      <mat-form-field class="form-field">
+        <input matInput placeholder="Cylinders" formControlName="Cylinders" type="number">
+      </mat-form-field>
+  
+      <mat-form-field class="form-field">
+        <input matInput placeholder="Displacement" formControlName="Displacement" type="number">
+      </mat-form-field>
+  
+      <mat-form-field class="form-field">
+        <input matInput placeholder="Horsepower" formControlName="Horsepower" type="number">
+      </mat-form-field>
+  
+      <mat-form-field class="form-field">
+        <input matInput placeholder="Weight in lbs" formControlName="Weight_in_lbs" type="number">
+      </mat-form-field>
+  
+      <mat-form-field class="form-field">
+        <input matInput placeholder="Acceleration" formControlName="Acceleration" type="number">
+      </mat-form-field>
+  
+      <mat-form-field class="form-field">
+        <input matInput placeholder="Year" formControlName="Year">
+      </mat-form-field>
+  
+      <mat-form-field class="form-field">
+        <input matInput placeholder="Price" formControlName="price" type="number">
+      </mat-form-field>
+  
+      <mat-form-field class="form-field">
+        <input matInput placeholder="Origin" formControlName="Origin">
+      </mat-form-field>
+  
+      <button mat-raised-button color="primary" type="submit">Add Vehicle</button>
+    </form>
+  </div>
+  
