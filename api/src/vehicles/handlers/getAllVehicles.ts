@@ -10,7 +10,7 @@ export async function getAllVehicles (query:any) {
         const nameCriteria = name ? { Name : name }  : {}
         const mpgCriteria = mpg ? { Miles_per_Gallon: { $gt: Number(mpg) } } : {}
         const priceCriteria = price ? { price: { $lt: Number(price) } } : {}
-        const result = await VehiclesModel.find({...hpCriteria, ...accCriteria,...weightCriteria,...nameCriteria,...mpgCriteria,...priceCriteria},{ __v: 0 }).limit(Number(limit)||25);
+        const result = await VehiclesModel.find({...hpCriteria, ...accCriteria,...weightCriteria,...nameCriteria,...mpgCriteria,...priceCriteria},{ __v: 0,oldPrice:0 }).limit(Number(limit)||25);
         return result
     } catch (error) {
         console.log(error);

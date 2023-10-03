@@ -11,6 +11,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule,FormsModule } from '@angular/forms';
+import { NavbarComponent } from './ui-components/navbar/navbar.component';
+import { ToastrModule } from 'ngx-toastr';
+import { TableComponent } from './ui-components/table/table.component';
+import { RowComponent } from './ui-components/row/row.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +22,10 @@ import { ReactiveFormsModule,FormsModule } from '@angular/forms';
     VehiclesComponent,
     AddVehicleComponent,
     UpdateVehicleComponent,
-    AuditComponent
+    AuditComponent,
+    NavbarComponent,
+    TableComponent,
+    RowComponent
   ],
   imports: [
     BrowserModule,
@@ -29,6 +36,8 @@ import { ReactiveFormsModule,FormsModule } from '@angular/forms';
     ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
+    ToastrModule.forRoot()
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

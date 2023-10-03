@@ -1,8 +1,8 @@
-import { AuditLog } from "../../db/models/aduitLog"; 
+import { AuditLog } from "../../db/models/aduitLog";
 
-async function getAuditLogs() {
+async function getAuditLogs(query:any) {
   try {
-    const result = await AuditLog.find();
+    const result = await AuditLog.find({}, { __v: 0 });
     return result;
   } catch (error) {
     throw error

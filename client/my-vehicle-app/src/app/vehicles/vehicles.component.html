@@ -5,33 +5,14 @@
             <form (ngSubmit)="applyFilters()">
               <input type="number" [(ngModel)]="filterCriteria.hp" name="hp" placeholder="Min Horsepower">
               <input type="number" [(ngModel)]="filterCriteria.acc" name="acc" placeholder="Min Acceleration">
+              <input type="number" [(ngModel)]="filterCriteria.mpg" name="mpg" placeholder="Min Miles per a gallon">
+              <input type="number" [(ngModel)]="filterCriteria.price" name="price" placeholder="Min price">
+              <input type="number" [(ngModel)]="filterCriteria.weight" name="weight" placeholder="Min weight">
               <button type="submit">Apply Filters</button>
             </form>
           </div>
-          
+<div class="dataDiv">
+    <app-table [headers]="tableHeaders" [data]="vehicles"  (deleteRowEvent)="deleteVehicle($event)"></app-table>
+</div>
 
-<table class="table">
-    <thead class="thead">
-        <tr class="tr">
-            <th class="th" *ngFor="let header of tableHeaders">{{header}}</th>
-            <th class="th">Delete</th>
-        </tr>
-    </thead>
-    <tbody class="tbody">
-        <tr class="tr" *ngFor="let vehicle of vehicles">
-            <td class="td">{{ vehicle._id }}</td>
-            <td class="td">{{ vehicle.Name }}</td>
-            <td class="td">{{ vehicle.Miles_per_Gallon }}</td>
-            <td class="td">{{ vehicle.Cylinders }}</td>
-            <td class="td">{{ vehicle.Displacement }}</td>
-            <td class="td">{{ vehicle.Horsepower }}</td>
-            <td class="td">{{ vehicle.Weight_in_lbs }}</td>
-            <td class="td">{{ vehicle.Acceleration }}</td>
-            <td class="td">{{ vehicle.Year }}</td>
-            <td class="td">{{ vehicle.price }}</td>
-            <td class="td">{{ vehicle.Origin }}</td>
-            <td class="td"><button (click)="deleteVehicle(vehicle._id)">Delete</button></td>
-        </tr>
-    </tbody>
-</table>
 </div>

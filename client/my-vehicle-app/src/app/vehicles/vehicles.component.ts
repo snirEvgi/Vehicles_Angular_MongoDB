@@ -43,18 +43,28 @@ export class VehiclesComponent {
   }
 
   async deleteVehicle(id: string) {
-    await this.vehicleService.removeVehicle(id);
-    await this.getVehicles()
-    const auditLogData = {
-      vehicleId: id,
-      newPrice: 0,
-      oldPrice: 0,
-      action: 'REMOVE',
-      details: `Removed vehicle with ID: ${id}`
-    };
 
-    const audit = this.auditService.addAuditLog(auditLogData).toPromise()
-    console.log(audit);
+   try {
+     const vehicleToDelete = await this.vehicleService.removeVehicle(id).toPromise();
+     console.log(vehicleToDelete);
+    
+     
+     const updatedData = await this.vehicleService.getVehicles().toPromise()
+     this.vehicles = updatedData as any;
+
+     const auditLogData = {
+       _id: id,
+       price: 0,
+       oldPrice: 0,
+       action: 'REMOVE',
+       details: `Removed vehicle with ID: ${id}`
+     };
+ 
+     const audit =await this.auditService.addAuditLog(auditLogData).toPromise()
+   } catch (error) {
+    console.log(error);
+    
+   }
   }
   async applyFilters(): Promise<void> {
     try {
@@ -66,13 +76,7 @@ export class VehiclesComponent {
       console.error('Error fetching filtered vehicles:', error);
     }
   }
-  async resetFilters(val:string): Promise<void> {
-    try {
-     
-    } catch (error) {
-      console.error('Error fetching filtered vehicles:', error);
-    }
-  }
+ 
 
 
 }

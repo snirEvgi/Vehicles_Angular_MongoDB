@@ -1,1 +1,12 @@
-<p>audit works!</p>
+<div class="mainDiv">
+<h1>Audits</h1>
+<div class="filter-bar">
+    <form (ngSubmit)="searchById()">
+      <input type="text" [(ngModel)]="filterCriteria._id" name="_id" placeholder="Insert ID">
+      <button type="submit">Filter</button>
+    </form>
+  </div>
+<div class="dataDiv">
+    <app-table [headers]="tableHeaders" [data]="audits" [showActionsColumn]="false" ></app-table>
+</div>
+</div>

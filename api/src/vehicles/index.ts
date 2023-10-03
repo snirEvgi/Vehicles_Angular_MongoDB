@@ -8,7 +8,7 @@ const vehiclesRouter = express.Router();
 vehiclesRouter.get("/", getAllVehiclesApi)
 vehiclesRouter.post("/newVehicle", addNewVehicleApi)
 vehiclesRouter.put("/updateVehicle/:id", updateVehicleApi)
-vehiclesRouter.delete("/remove/:id", removeVehicleApi)
+vehiclesRouter.delete("/remove", removeVehicleApi)
 vehiclesRouter.get("/find/:id", findVehicleByIdApi)
 async function getAllVehiclesApi(req: Request, res: Response, next: NextFunction) {
     try {
@@ -44,8 +44,8 @@ async function updateVehicleApi(req: Request, res: Response, next: NextFunction)
 }
 async function removeVehicleApi(req: Request, res: Response, next: NextFunction) {
     try {
-        const {id }= req?.params;
-        const result = await deleteVehicle(id)
+        const id = req?.query.id;
+        const result = await deleteVehicle(id as string)
         res.json(result);
     } catch (error) {
         console.log(error,"error deleting data");

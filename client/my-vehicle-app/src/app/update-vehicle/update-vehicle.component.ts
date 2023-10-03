@@ -28,14 +28,14 @@ export class UpdateVehicleComponent {
         const { _id, price, oldPrice, } = newVehicle
         const auditLogData = {
           _id: _id,
-          newPrice: price,
-          oldPrice: oldPrice,
+          price: Number(price),
+          oldPrice: Number(oldPrice),
           action: 'UPDATE',
-          details: `Updated vehicle: ${_id}`
+          details: `Updated vehicle price - from ${oldPrice} to ${price}`
         };
         console.log(auditLogData);
 
-        if (auditLogData.newPrice !== null && auditLogData.newPrice !== undefined && !isNaN(auditLogData.newPrice)) {
+        if (auditLogData.price !== null && auditLogData.price !== undefined && !isNaN(auditLogData.price)) {
           try {
             const audit = await this.auditService.addAuditLog(auditLogData).toPromise()
           } catch (error) {
@@ -49,6 +49,9 @@ export class UpdateVehicleComponent {
       } catch (error) {
         console.error('Error Updating vehicle:', error);
       }
+
+
+
 
     }
 

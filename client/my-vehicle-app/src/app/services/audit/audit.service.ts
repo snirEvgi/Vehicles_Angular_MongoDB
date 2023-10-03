@@ -21,4 +21,10 @@ export class AuditService {
 
     return this.http.post<any>(`${this.apiUrl}/audit/new`, log);
   }
+  getFilteredAudits(id :string) {
+    const prepData = id
+   
+    
+      return this.http.get(`${this.apiUrl}/audit/${id}`);
+  }
 }

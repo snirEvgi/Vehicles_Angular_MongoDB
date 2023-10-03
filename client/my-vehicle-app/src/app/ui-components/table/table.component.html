@@ -1,0 +1,18 @@
+<div class="mainDiv">
+  <table class="table">
+    <thead class="thead">
+      <tr class="tr">
+        <th class="th" *ngFor="let header of headers">{{ header }}</th>
+        <th *ngIf="showActionsColumn" class="th">Actions</th>
+      </tr>
+    </thead>
+    <tbody class="tbody">
+      <tr class="tr" *ngFor="let row of data">
+        <td class="td" *ngFor="let header of headers">{{ row[header] }}</td>
+        <td class="td" *ngIf="showActionsColumn">
+          <button (click)="deleteRow(row._id)">Delete</button>
+      </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

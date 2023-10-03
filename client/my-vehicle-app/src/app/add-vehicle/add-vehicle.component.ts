@@ -11,7 +11,7 @@ import { AuditService } from '../services/audit/audit.service';
 export class AddVehicleComponent {
   vehicleForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private vehicleService: VehicleService) {
+  constructor(private fb: FormBuilder, private vehicleService: VehicleService, private auditService: AuditService) {
     this.vehicleForm = this.fb.group({
       Name: ['', Validators.required],
       Miles_per_Gallon: [null, Validators.required],
@@ -32,8 +32,27 @@ export class AddVehicleComponent {
       const sValue = JSON.stringify(newVehicle);
       try {
         const result = await this.vehicleService.addVehicle(sValue).toPromise();
+        const {  price } = newVehicle
+        const { _id } = result
         
-                this.vehicleForm.reset();
+        
+        const auditLogData = {
+          _id: _id,
+          price: price,
+          oldPrice: 0,
+          action: 'ADD',
+          details: `Added new vehicle: ${_id}`
+        };
+        
+        if (auditLogData.price !== null && auditLogData.price !== undefined && !isNaN(auditLogData.price)) {
+          try {
+            const audit = await this.auditService.addAuditLog(auditLogData).toPromise()
+          } catch (error) {
+            console.log(error);
+
+          }
+        }
+        this.vehicleForm.reset();
 
       } catch (error) {
         console.error('Error adding vehicle:', error);

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, catchError, tap } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -8,41 +9,57 @@ import { Observable } from 'rxjs';
 export class VehicleService {
   private apiUrl = "http://localhost:4503";
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private toastr: ToastrService) { }
 
   getVehicles(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/vehicles`);
   }
 
   addVehicle(vehicle: any): Observable<any> {
-    console.log(JSON.parse(vehicle), "assssssssssssssss");
-
-    const { Name, price, _id } = JSON.parse(vehicle)
+    const { Name, price, _id } = JSON.parse(vehicle);
 
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    // const auditLogData = {
-    //   _id: _id,
-    //   price: price,
-    //   oldPrice: 0,
-    //   action: 'ADD',
-    //   details: `Added new vehicle: ${Name}`
-    // };
-    // const audit = this.addAuditLog(auditLogData)
-    const data = this.http.post<any>(`${this.apiUrl}/vehicles/newVehicle`, vehicle, { headers: headers });
-    return data
+   
+    return this.http.post<any>(`${this.apiUrl}/vehicles/newVehicle`, vehicle, { headers: headers })
+      .pipe(
+        tap(response => {
+          this.toastr.success('Vehicle added successfully!', 'Success' ,{ timeOut: 3000, progressBar: true, progressAnimation: 'increasing', positionClass: 'toast-top-right', toastClass: 'toast-success' });
+        }),
+        catchError(error => {
+          this.toastr.error('Failed to add vehicle. Please try again.', 'Error'),{ timeOut: 3000, progressBar: true, progressAnimation: 'increasing', positionClass: 'toast-top-right', toastClass: 'toast-error' };
+          throw error; 
+        })
+      );
   }
+
   updateVehicle(vehicleData: any): Observable<any> {
-    const { _id } = vehicleData
+    const { _id } = vehicleData;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.put<any>(`${this.apiUrl}/vehicles/updateVehicle/${_id}`, vehicleData, { headers: headers });
-
+    
+    return this.http.put<any>(`${this.apiUrl}/vehicles/updateVehicle/${_id}`, vehicleData, { headers: headers })
+      .pipe(
+        tap(response => {
+          this.toastr.success('Vehicle updated successfully!', 'Success',{ timeOut: 3000, progressBar: true, progressAnimation: 'increasing', positionClass: 'toast-top-right', toastClass: 'toast-success'});
+        }),
+        catchError(error => {
+          this.toastr.error('Failed to update vehicle. Please try again.', 'Error',{ timeOut: 3000, progressBar: true, progressAnimation: 'increasing', positionClass: 'toast-top-right', toastClass: 'toast-error'});
+          throw error; 
+        })
+      );
   }
+
   removeVehicle(id: string): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/vehicles/remove/${id}`);
+    return this.http.delete<any>(`${this.apiUrl}/vehicles/remove?id=${id}`)
+      .pipe(
+        tap(response => {
+          this.toastr.success('Vehicle removed successfully!', 'Success');
+        }),
+        catchError(error => {
+          this.toastr.error('Failed to remove vehicle. Please try again.', 'Error');
+          throw error; 
+        })
+      );
   }
-
- 
-
   getFilteredVehicles(filterCriteria: any) {
     
 
